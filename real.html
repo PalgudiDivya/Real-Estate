@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" user-scalable="no" content="width=device-width, initial-scale=1.0">
+    <title>real</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="Estate.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .apartment {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            background-color: white;
+            text-align: left;
+            display: none; /* Initially hidden */
+        }
+        .apartment img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Search Apartments</h2>
+        
+    <!-- Search form with multiple fields -->
+        <input type="text" id="location" placeholder="Enter city name...">
+        <input type="text" id="property" placeholder="Enter property type...">
+        <input type="text" id="pricing" placeholder="Enter pricing charge ($)...">
+        
+        <button onclick="searchApartments()">Search</button>
+
+        <div id="results">
+            <!-- Apartments are preloaded in HTML -->
+            <div class="apartment" data-city="new york" data-property="apartment" data-price="2500">
+                <img src="./images (1).jpeg" alt="Skyline Heights">
+                <h3>Skyline Heights</h3>
+                <p><strong>Price:</strong> $2500/month</p>
+                <p><strong>Details:</strong> 2 Bed, 2 Bath, Near Central Park</p>
+            </div>
+
+            <div class="apartment" data-city="new york" data-property="condo" data-price="1800">
+                <img src="./images (2).jpeg" alt="Brooklyn Residences">
+                <h3>Brooklyn Residences</h3>
+                <p><strong>Price:</strong> $1800/month</p>
+                <p><strong>Details:</strong> 1 Bed, 1 Bath, Close to subway</p>
+            </div>
+
+            <div class="apartment" data-city="los angeles" data-property="apartment" data-price="2200">
+                <img src="./images (3).jpeg" alt="Sunset Towers">
+                <h3>Sunset Towers</h3>
+                <p><strong>Price:</strong> $2200/month</p>
+                <p><strong>Details:</strong> 2 Bed, 1 Bath, Ocean view</p>
+            </div>
+
+            <div class="apartment" data-city="los angeles" data-property="loft" data-price="2700">
+                <img src="./images (8).jpeg" alt="Hollywood Lofts">
+                <h3>Hollywood Lofts</h3>
+                <p><strong>Price:</strong> $2700/month</p>
+                <p><strong>Details:</strong> 3 Bed, 2 Bath, Near Walk of Fame</p>
+            </div>
+
+            <div class="apartment" data-city="chicago" data-property="apartment" data-price="1600">
+                <img src="./images (6).jpeg" alt="Windy City Flats">
+                <h3>Windy City Flats</h3>
+                <p><strong>Price:</strong> $1600/month</p>
+                <p><strong>Details:</strong> 1 Bed, 1 Bath, Near downtown</p>
+            </div>
+
+            <div class="apartment" data-city="chicago" data-property="condo" data-price="2000">
+                <img src="./images.jpeg" alt="Lakeview Apartments">
+                <h3>Lakeview Apartments</h3>
+                <p><strong>Price:</strong> $2000/month</p>
+                <p><strong>Details:</strong> 2 Bed, 2 Bath, Lake Michigan view</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function searchApartments() {
+            const locationValue = document.getElementById("location").value.trim().toLowerCase();
+            const propertyValue = document.getElementById("property").value.trim().toLowerCase();
+            const pricingValue = document.getElementById("pricing").value.trim();
+
+            const apartments = document.querySelectorAll(".apartment");
+            let found = false;
+
+            apartments.forEach(apartment => {
+                const city = apartment.getAttribute("data-city").toLowerCase();
+                const property = apartment.getAttribute("data-property").toLowerCase();
+                const price = apartment.getAttribute("data-price");
+
+                // Check if apartment matches all search criteria
+                if (
+                    (city.includes(locationValue) || locationValue === "") &&
+                    (property.includes(propertyValue) || propertyValue === "") &&
+                    (price.includes(pricingValue) || pricingValue === "")
+                ) {
+                    apartment.style.display = "block"; // Show matching apartments
+                    found = true;
+                } else {
+                    apartment.style.display = "none"; // Hide others
+                }
+            });
+
+            if (!found) {
+                document.getElementById("results").innerHTML = "<p>No results found.</p>";
+            }
+        }
+    </script>
+
+</body>
+</html>
